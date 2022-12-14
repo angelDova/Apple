@@ -1,13 +1,12 @@
 import Head from "next/head";
-import Image from "next/image";
 import Header from "../components/Header";
 import Landing from "../components/Landing";
-import styles from "../styles/Home.module.css";
 import { Tab } from "@headlessui/react";
 import { GetServerSideProps } from "next";
 import { fetchCategories } from "../utils/fetchCategories";
 import { fetchProducts } from "../utils/fetchProducts";
 import Product from "../components/Product";
+import Basket from "../components/Basket";
 
 interface Props {
   categories: Category[];
@@ -19,7 +18,7 @@ const Home = ({ categories, products }: Props) => {
 
   const showProducts = (category: number) => {
     return products
-      .filter((product) => product.category._ref === categories[category]._id)
+      .filter((product) => product.category?._ref === categories[category]._id)
       .map((product) => <Product product={product} key={product._id} />); // filters products by category
   };
 
@@ -32,7 +31,10 @@ const Home = ({ categories, products }: Props) => {
       </Head>
 
       <Header />
-      <main className="relative h-[200vh] bg-[#E7ECE]">
+
+      <Basket />
+
+      <main className="relative h-[200vh] bg-[#E7ECEE]">
         <Landing />
       </main>
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-[#1B1B1B]">
